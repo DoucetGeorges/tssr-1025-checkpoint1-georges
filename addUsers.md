@@ -1,46 +1,45 @@
-#!/bin/bash
+# Script de Création d'Utilisateurs
 
-if [ "$#" -eq 0 ]; then
+## 1. Vérification de présence d'arguments
 
-    echo "Il manque les noms d'utilisateurs en argument - Fin du script"
-    exit 1
-fi
+```
+SI [le nombre d'arguments = 0] ALORS
+    AFFICHER "Il manque les noms d'utilisateurs en argument - Fin du script"
+    ARRÊTER LE SCRIPT
+FIN SI
+```
 
+## 2. Début de boucle pour traiter les utilisateurs
 
-if [ -f "$1"  ]; then
-    echo "L'utilisateur "$1" existe déjà"
-else 
-    sudo useradd "$1"
-fi
+```
+POUR chaque utilisateur (tous les arguments présentés) FAIRE
+```
 
-if [ -f "$2"  ]; then
-    echo "L'utilisateur "$2" existe déjà" 
-else
-    sudo useradd "$2"
-fi
+## 3. Vérification de l'existence de l'utilisateur
 
-if [ -f "$3"  ]; then
-    echo "L'utilisateur "$3" existe déjà" 
-else
-    sudo useradd "$3"
-fi
+```
+    SI [utilisateur existe déjà] ALORS
+        AFFICHER "L'utilisateur $utilisateur existe déjà"
+        // Le script continue même si l'utilisateur existe déjà
+    SINON
+        AFFICHER "L'utilisateur $utilisateur n'existe pas"
+    FIN SI
+```
 
-if [ -f "$1"  ]; then
-    echo "L'utilisateur $1 a été crée"
-else
-    echo "Erreur à la création de l'utilisateur $1"
-fi
+## 4. Création de l'utilisateur
 
-if [ -f "$2"  ]; then
-    echo "L'utilisateur $2 a été crée"
-else
-    echo "Erreur à la création de l'utilisateur $2"
-fi
+```
+    EXÉCUTION de la commande de création d'utilisateur
+```
 
+## 5. Vérification de la réussite de la commande de création utilisateur
 
-if [ -f "$3"  ]; then
-    echo "L'utilisateur $3 a été crée"
-else
-    echo "Erreur à la création de l'utilisateur $3"
-fi
+```
+    SI [le code de retour de la commande de création est égal à 0] ALORS
+        AFFICHER "L'utilisateur $utilisateur a été créé"
+    SINON
+        AFFICHER "Erreur à la création de l'utilisateur $utilisateur"
+    FIN SI
 
+FIN BOUCLE
+```
